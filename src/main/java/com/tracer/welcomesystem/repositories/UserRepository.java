@@ -1,4 +1,9 @@
 package com.tracer.welcomesystem.repositories;
 
-public class UserRepository {
+
+@Repository
+public interface UserRepository {
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    
 }
