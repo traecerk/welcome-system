@@ -2,36 +2,47 @@ package com.tracer.welcomesystem.controller;
 
 import com.tracer.welcomesystem.models.Admin;
 import com.tracer.welcomesystem.services.AdminService;
+import com.tracer.welcomesystem.services.AuthService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Objects;
 
 @RequestMapping("/admin")
 @RestController
 public class AdminController {
     final AdminService adminService;
+    final AuthService authService;
 
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, AuthService authService) {
         this.adminService = adminService;
+        this.authService = authService;
     }
 
     @PostMapping("/register")
     public String register(@RequestBody Map<String, String> admin) {
-        String username = admin.get("username");
+        String email = admin.get("email");
         String password = admin.get("password");
-        adminService.saveAdmin(new Admin(username, password));
+        adminService.saveAdmin(new Admin(email, password));
+        System.out.println(email + " registered successfully");
         return "Admin registered successfully";
     }
 
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> admin) {
-        String name = admin.get("username");
+        String email = admin.get("email");
         String password = admin.get("password");
-        Admin admin1 = adminService.getAdminByName(name);
-        if (admin1 != null) {
-            return "Login successful";
+        Admin admin1 = adminService.getAdminByEmail(email);
+        if (Objects.equals(admin1.getPassword(), password)){
+            String token = authService.generateToken();
+            authService.storeToken(email, token);
+            System.out.println(email + " logged in successfully");
+            //设置cookie
+
+            return token;
         } else {
-            return "Invalid credentials";
+            System.out.println("Invalid email or password");
+            return "Invalid email or password";
         }
     }
 

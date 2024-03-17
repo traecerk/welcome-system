@@ -1,12 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1434;databaseName=Student2;Encrypt=false;trustServerCertificate=false
+    url: jdbc:sqlserver://localhost:1434;databaseName=St2;Encrypt=false;trustServerCertificate=false
     username: sa
     password: 123
 
   jpa:
     database-platform: org.hibernate.dialect.SQLServer2012Dialect
     hibernate:
-        ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
     show-sql: true
+
+server:
+  port: 8080

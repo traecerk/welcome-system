@@ -16,13 +16,13 @@ public class Admin {
     private Long admin_id;
 
     @Column(name = "name")
-    private String name;
+    private String name = "Admin";
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "tel")
-    private String tel;
+    private String tel = "0000000000";
 
     @Column(name = "password")
     private String password;
@@ -30,7 +30,7 @@ public class Admin {
 
 
     @Column(name = "college")
-    private String college;
+    private String college = "ALL";
 
 
 
@@ -39,8 +39,8 @@ public class Admin {
     }
 
 
-    public Admin(String username, String password) {
-        this.name = username;
+    public Admin(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 }

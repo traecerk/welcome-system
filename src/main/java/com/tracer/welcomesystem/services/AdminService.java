@@ -35,6 +35,11 @@ public class AdminService {
         return adminRepository.findByName(username);
     }
 
+    public Admin getAdminByEmail(String email) {
+        return adminRepository.findByEmail(email);
+    }
 
-
+    public Admin getAdminByEmailAndPassword(String email, String password) {
+        return adminRepository.findByEmailAndPassword(email, password);
+    }
 }

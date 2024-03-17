@@ -7,10 +7,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Entity
 @Data
-@Table(name = "Student")
+@Table(name = "users")
 public class User {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -22,19 +21,19 @@ public class User {
     private String username;
 
     @Column(name = "gender")
-    private int gender;
+    private int gender = 0;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "tel")
-    private String tel;
+    private String tel = "未填写";
 
     @Column(name = "college")
-    private String college;
+    private String college = "未填写";
 
     @Column(name = "major")
-    private String major;
+    private String major = "未填写";
 
 
     public User(Long id, String name,String email){
