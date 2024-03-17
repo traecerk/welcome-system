@@ -11,34 +11,36 @@ import lombok.Data;
 @Table(name = "Admin")
 public class Admin {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long admin_id;
 
-    @Column(name = "username")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "email")
     private String email;
 
+    @Column(name = "tel")
+    private String tel;
+
     @Column(name = "password")
     private String password;
 
 
-    @Column(name = "department")
-    private String department;
 
-    public Admin(Long id, String name, String email, String password, String department) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.department = department;
-    }
+    @Column(name = "college")
+    private String college;
+
+
 
     public Admin() {
 
     }
 
 
-
+    public Admin(String username, String password) {
+        this.name = username;
+        this.password = password;
+    }
 }

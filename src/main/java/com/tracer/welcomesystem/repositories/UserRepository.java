@@ -6,9 +6,10 @@ import com.tracer.welcomesystem.models.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
+    User findByEmail(String email);
 }

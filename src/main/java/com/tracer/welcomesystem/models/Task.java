@@ -19,14 +19,26 @@ public class Task {
     @Column(name = "task_description")
     private String taskDescription;
 
-    @Column(name = "task_status")
-    int taskStatus;
+    @Column(name = "college")
+    private String college;
 
-    @Column(name = "task_type")
-    int taskType;
+    @Column(name = "Optional")
+    private int Optional;
 
     @Column(name = "task_priority")
-    int taskPriority;
+    private int taskPriority;
+
+    @Column(name = "task_dependency")
+    private int taskDependency;
+
+    @Column(name = "ad")
+    private int ad;
+
+    @Column(name = "online")
+    private int online;
+
+    @Column(name = "location")
+    private String location;
 
     @ManyToOne
     User user;
@@ -34,16 +46,6 @@ public class Task {
     @ManyToOne
     Admin admin;
 
-    public Task(Long id, String taskName, String taskDescription, int taskStatus, int taskType, int taskPriority, User user, Admin admin) {
-        this.id = id;
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.taskStatus = taskStatus;
-        this.taskType = taskType;
-        this.taskPriority = taskPriority;
-        this.user = user;
-        this.admin = admin;
-    }
 
     public Task() {
 

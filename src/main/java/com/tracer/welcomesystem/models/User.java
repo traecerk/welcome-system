@@ -14,19 +14,35 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "passwd")
+    private String password;
+
+
     @Column(name = "username")
-    private String name;
+    private String username;
+
+    @Column(name = "gender")
+    private int gender;
 
     @Column(name = "email")
     private String email;
 
+    @Column(name = "tel")
+    private String tel;
 
-    public User(Long id, String name, String email) {
+    @Column(name = "college")
+    private String college;
+
+    @Column(name = "major")
+    private String major;
+
+
+    public User(Long id, String name,String email){
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.email = email;
-    }
 
+    }
     public User() {
 
     }

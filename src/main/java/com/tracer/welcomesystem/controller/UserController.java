@@ -3,12 +3,10 @@ package com.tracer.welcomesystem.controller;
 import com.tracer.welcomesystem.services.UserService;
 import com.tracer.welcomesystem.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 
 @RestController
@@ -32,6 +30,8 @@ public class UserController {
         User user = new User(id, name, email);
         return userService.saveUser(user);
     }
+
+
 
     @GetMapping("/user/list")
     public List<User> getAllUsers(){

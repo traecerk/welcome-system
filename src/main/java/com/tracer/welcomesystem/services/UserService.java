@@ -26,6 +26,15 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
+    //login
+    public Boolean login(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return user.getPassword().equals(password);
+        }
+        return false;
+    }
+
     public User saveUser(User user) {
         return userRepository.save(user);
     }
