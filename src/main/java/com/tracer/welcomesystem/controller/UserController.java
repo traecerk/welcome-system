@@ -2,12 +2,16 @@ package com.tracer.welcomesystem.controller;
 
 import com.tracer.welcomesystem.services.UserService;
 import com.tracer.welcomesystem.models.User;
+import com.tracer.welcomesystem.utils.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 
+@CrossOrigin
 
 @RestController
 public class UserController {
@@ -34,8 +38,14 @@ public class UserController {
 
 
     @GetMapping("/user/list")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public RespBean getAllUsers(){
+
+        HashMap<Object,Object> map= new HashMap<>();
+        List<User> users = userService.getAllUsers();
+        map.put("total", users.size());
+        map.put("items", users);
+
+        return RespBean.ok("User list", map);
     }
 
 }
