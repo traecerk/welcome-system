@@ -17,9 +17,9 @@ public class AuthService {
         return UUID.randomUUID().toString();
     }
 
-    public void storeToken(String username, String token) {
-        redisTemplate.opsForValue().set(username, token);
-        redisTemplate.expire(username, 30, TimeUnit.MINUTES); // 设置token过期时间为30分钟
+    public void storeToken(String email, String token) {
+        redisTemplate.opsForValue().set(email, token);
+        redisTemplate.expire(email, 30, TimeUnit.MINUTES); // 设置token过期时间为30分钟
     }
 
     public boolean validateToken(String username, String token) {
