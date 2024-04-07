@@ -43,7 +43,9 @@ public class AdminController {
         String email = admin.get("username");
         String password = admin.get("password");
         System.out.println(email + " " + password);
-        Admin admin1 = adminService.getAdminByEmail(email);
+
+
+        Admin admin1 = adminService.login(email, password);
         if (Objects.equals(admin1.getPassword(), password)){
             String token = authService.generateToken();
             authService.storeToken(email, token);

@@ -35,7 +35,20 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @PostMapping("/login")
+    public RespBean login(@RequestBody HashMap<String, String> user){
+        String email = user.get("email");
+        String password = user.get("password");
+        System.out.println(email + " " + password);
 
+        Boolean login = userService.login(email, password);
+        if (login){
+            return RespBean.ok("Login successful", null);
+        } else {
+            System.out.println("Invalid email or password");
+            return RespBean.error("Invalid email or password");
+        }
+    }
 
     @GetMapping("/list")
     public RespBean getAllUsers(){
