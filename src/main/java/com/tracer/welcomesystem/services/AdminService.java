@@ -21,7 +21,13 @@ public class AdminService {
         return adminRepository.save(admin);
     }
 
-
+    public Admin login(String email, String password) {
+        Admin admin = adminRepository.findByEmail(email);
+        if (admin != null) {
+            return admin.getPassword().equals(password) ? admin : null;
+        }
+        return null;
+    }
 
    public Admin getAdminById(Long id) {
         return adminRepository.findById(id)
@@ -42,4 +48,6 @@ public class AdminService {
     public Admin getAdminByEmailAndPassword(String email, String password) {
         return adminRepository.findByEmailAndPassword(email, password);
     }
+
+
 }
