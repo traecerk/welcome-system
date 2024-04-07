@@ -69,4 +69,11 @@ public class AdminController {
         return RespBean.ok("Admin info", map );
     }
 
+    @PostMapping("/logout")
+    public RespBean logout(@RequestParam(value = "token") String token){
+        System.out.println("Logout");
+        authService.storeToken(token, "");
+        return RespBean.ok("Logout successful", "");
+    }
+
 }

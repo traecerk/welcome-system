@@ -12,8 +12,8 @@ import java.util.Objects;
 
 
 @CrossOrigin
-
 @RestController
+@RequestMapping("/user")
 public class UserController {
     final UserService userService;
 
@@ -29,15 +29,15 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/saveUser")
-    public User saveUser(@RequestParam(value = "id") Long id, @RequestParam(value = "name") String name, @RequestParam(value = "email") String email){
-        User user = new User(id, name, email);
+    @GetMapping("/save")
+    public User saveUser(@RequestParam(value = "stuid") String stuid, @RequestParam(value = "name") String name, @RequestParam(value = "email") String email){
+        User user = new User(stuid, name, email);
         return userService.saveUser(user);
     }
 
 
 
-    @GetMapping("/user/list")
+    @GetMapping("/list")
     public RespBean getAllUsers(){
 
         HashMap<Object,Object> map= new HashMap<>();

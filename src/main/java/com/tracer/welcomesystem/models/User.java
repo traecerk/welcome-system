@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "users")
@@ -13,9 +15,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "stuid")
+    private String stuid;
+
+    @Column(name = "id_card")
+    private String id_card;
+
     @Column(name = "passwd")
     private String password;
-
 
     @Column(name = "username")
     private String username;
@@ -36,8 +43,10 @@ public class User {
     private String major = "未填写";
 
 
-    public User(Long id, String name,String email){
-        this.id = id;
+
+
+    public User(String stuid ,String name,String email){
+        this.stuid = stuid;
         this.username = name;
         this.email = email;
 

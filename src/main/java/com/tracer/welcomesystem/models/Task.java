@@ -4,6 +4,8 @@ package com.tracer.welcomesystem.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 
 @Entity
 @Data
@@ -40,11 +42,13 @@ public class Task {
     @Column(name = "location")
     private String location;
 
-    @ManyToOne
-    User user;
+    @Column(name = "start_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date startTime;
 
-    @ManyToOne
-    Admin admin;
+    @Column(name = "end_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date endTime;
 
 
     public Task() {
@@ -52,9 +56,17 @@ public class Task {
     }
 
 
-    public Task(Long id, String name, String description) {
-        this.id = id;
-        this.taskName = name;
-        this.taskDescription = description;
+    public Task(String taskName, String taskDescription, String college, int Optional, int taskPriority, int taskDependency, int ad, int online, String location, java.util.Date startTime, java.util.Date endTime) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.college = college;
+        this.Optional = Optional;
+        this.taskPriority = taskPriority;
+        this.taskDependency = taskDependency;
+        this.ad = ad;
+        this.online = online;
+        this.location = location;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }
