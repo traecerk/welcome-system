@@ -31,6 +31,8 @@ public class UtController {
         return RespBean.ok("UT list", map);
     }
 
+
+
     @GetMapping("/delete")
     public RespBean deleteUT(Long id){
         utService.deleteUT(id);

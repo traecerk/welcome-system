@@ -1,5 +1,6 @@
 package com.tracer.welcomesystem.controller;
 
+import com.tracer.welcomesystem.services.AuthService;
 import com.tracer.welcomesystem.services.UserService;
 import com.tracer.welcomesystem.models.User;
 import com.tracer.welcomesystem.utils.RespBean;
@@ -17,9 +18,12 @@ import java.util.Objects;
 public class UserController {
     final UserService userService;
 
+    final AuthService authService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
 
@@ -35,6 +39,14 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @PostMapping("/modify")
+    public RespBean modifyUser(@RequestBody User user){
+        userService.saveUser(user);
+        HashMap<Object,Object> map= new HashMap<>();
+        map.put("user", user);
+        return RespBean.ok("User modified", map);
+    }
+
     @PostMapping("/login")
     public RespBean login(@RequestBody HashMap<String, String> user){
         String email = user.get("email");
@@ -43,7 +55,12 @@ public class UserController {
 
         Boolean login = userService.login(email, password);
         if (login){
-            return RespBean.ok("Login successful", null);
+            String token = authService.generateToken();
+            authService.storeToken(email, token);
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", token);
+
+            return RespBean.ok("Login successful", map);
         } else {
             System.out.println("Invalid email or password");
             return RespBean.error("Invalid email or password");
@@ -59,6 +76,12 @@ public class UserController {
         map.put("items", users);
 
         return RespBean.ok("User list", map);
+    }
+
+    @PostMapping("/delete")
+    public RespBean deleteUser(@RequestParam(value = "id") Long id){
+        userService.deleteUser(id);
+        return RespBean.ok("User deleted", "id:" + id);
     }
 
 }

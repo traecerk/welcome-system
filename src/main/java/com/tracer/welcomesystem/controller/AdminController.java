@@ -46,7 +46,7 @@ public class AdminController {
 
 
         Admin admin1 = adminService.login(email, password);
-        if (Objects.equals(admin1.getPassword(), password)){
+        if (admin1 != null){
             String token = authService.generateToken();
             authService.storeToken(email, token);
             Cookie cookie = new Cookie("token", token);
