@@ -84,4 +84,14 @@ public class UserController {
         return RespBean.ok("User deleted", "id:" + id);
     }
 
+    @PostMapping("/logout")
+    public RespBean logout(@RequestParam(value = "token") String token){
+        if (authService.validateToken(token)){
+            authService.storeToken(authService.getEmail(token), null);
+            return RespBean.ok("Logout successful", "");
+        } else {
+            return RespBean.error("Invalid token");
+        }
+    }
+
 }
