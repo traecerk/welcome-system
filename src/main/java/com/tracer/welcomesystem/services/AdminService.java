@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
@@ -18,7 +20,20 @@ public class AdminService {
     }
 
     public Admin saveAdmin(Admin admin) {
-        return adminRepository.save(admin);
+        Admin save = null;
+        Optional<Admin> adminOptional = adminRepository.findById(admin.getAdmin_id());
+        if (adminOptional.isPresent()) {
+            Admin admin1 = adminOptional.get();
+            admin1.setAdmin_id(admin.getAdmin_id());
+            admin1.setEmail(admin.getEmail());
+            admin1.setPassword(admin.getPassword());
+            save = adminRepository.save(admin1);
+        } else {
+            save = adminRepository.save(admin);
+        }
+        return save;
+
+
     }
 
     public Admin login(String email, String password) {
@@ -29,25 +44,7 @@ public class AdminService {
         return null;
     }
 
-   public Admin getAdminById(Long id) {
-        return adminRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Admin not found with id: " + id));
-    }
-    public void deleteAdmin(Long id) {
-        adminRepository.deleteById(id);
-    }
 
-    public Admin getAdminByName(String username) {
-        return adminRepository.findByName(username);
-    }
-
-    public Admin getAdminByEmail(String email) {
-        return adminRepository.findByEmail(email);
-    }
-
-    public Admin getAdminByEmailAndPassword(String email, String password) {
-        return adminRepository.findByEmailAndPassword(email, password);
-    }
 
 
 }

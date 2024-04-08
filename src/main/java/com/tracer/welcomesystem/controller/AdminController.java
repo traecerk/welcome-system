@@ -60,6 +60,14 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/modify")
+    public RespBean modifyAdmin(@RequestBody Admin admin){
+        adminService.saveAdmin(admin);
+        HashMap<Object,Object> map= new HashMap<>();
+        map.put("admin", admin);
+        return RespBean.ok("Admin modified", map);
+    }
+
     @GetMapping("/info")
     public RespBean getInfo(@RequestParam(value = "token") String token,
             HttpServletRequest request){
@@ -72,9 +80,7 @@ public class AdminController {
     }
 
     @PostMapping("/logout")
-    public RespBean logout(@RequestParam(value = "token") String token){
-        System.out.println("Logout");
-        authService.storeToken(token, "");
+    public RespBean logout(){
         return RespBean.ok("Logout successful", "");
     }
 
