@@ -48,7 +48,7 @@ public class AdminController {
         Admin admin1 = adminService.login(email, password);
         if (admin1 != null){
             String token = authService.generateToken();
-            authService.storeToken(email, token);
+            authService.storeToken(admin1, token);
             Cookie cookie = new Cookie("token", token);
             response.addCookie(cookie);
             HashMap<String, String> map = new HashMap<>();
@@ -61,10 +61,14 @@ public class AdminController {
     }
 
     @PostMapping("/modify")
-    public RespBean modifyAdmin(@RequestBody Admin admin){
-        adminService.saveAdmin(admin);
+    public RespBean modifyAdmin(@RequestBody HashMap<String, String> admin){
+        Admin admin1 = adminService.getAdminByEmail(admin.get("email"));
+        admin1.setEmail(admin.get("email"));
+        admin1.setPassword(admin.get("Newpassword"));
+        admin1.setName(admin.get("name"));
+        adminService.saveAdmin(admin1);
         HashMap<Object,Object> map= new HashMap<>();
-        map.put("admin", admin);
+        map.put("admin", admin1);
         return RespBean.ok("Admin modified", map);
     }
 
@@ -77,6 +81,22 @@ public class AdminController {
         map.put("avatar", "123");
         map.put("roles", new String[]{"admin"});
         return RespBean.ok("Admin info", map );
+    }
+
+    @GetMapping("/aInfo")
+    public RespBean getAdminInfo(HttpServletRequest request){
+        String token = request.getHeader("X-Token");
+
+        if (authService.validateToken(token)){
+            Object admin1 = authService.getObject(token);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("admin", admin1);
+            return RespBean.ok("Admin info", admin1);
+        } else {
+            return RespBean.error("Invalid token");
+        }
+
+
     }
 
     @PostMapping("/logout")

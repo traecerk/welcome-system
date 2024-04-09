@@ -1,6 +1,7 @@
 package com.tracer.welcomesystem.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,6 +22,7 @@ public class User {
     @Column(name = "id_card")
     private String id_card;
 
+    @JsonIgnore
     @Column(name = "passwd")
     private String password;
 

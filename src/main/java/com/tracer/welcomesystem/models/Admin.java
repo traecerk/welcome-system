@@ -1,6 +1,7 @@
 package com.tracer.welcomesystem.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Admin {
     @Column(name = "tel")
     private String tel = "0000000000";
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
