@@ -19,7 +19,7 @@ public class TaskService {
 
     public Task saveTask(Task task) {
         Task save = null;
-        Optional<Task> taskOptional = taskRepository.findById(task.getId());
+        Optional<Task> taskOptional = Optional.ofNullable(taskRepository.findByTaskName(task.getTaskName()));
         if (taskOptional.isPresent()) {
             Task task1 = taskOptional.get();
             task1.setTaskName(task.getTaskName());

@@ -45,7 +45,8 @@ public class AdminController {
         System.out.println(email + " " + password);
 
 
-        Admin admin1 = adminService.login(email, password);
+        Admin admin1 = adminService.getAdminByEmail(email);
+
         if (admin1 != null){
             String token = authService.generateToken();
             authService.storeToken(admin1, token);
@@ -59,6 +60,7 @@ public class AdminController {
             return RespBean.error("Invalid email or password");
         }
     }
+
 
     @PostMapping("/modify")
     public RespBean modifyAdmin(@RequestBody HashMap<String, String> admin){
