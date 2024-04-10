@@ -4,6 +4,7 @@ import com.tracer.welcomesystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,5 +47,26 @@ public class UserService {
         return user;
     }
 
+    public int countUsers() {
+        return userRepository.findAll().size();
+    }
+
+    public List<Integer> countbyCollege() {
+        List<User> cusers = userRepository.findDistinctByCollege();
+        List<Integer> counts = new ArrayList<>();
+        for (User user : cusers) {
+            counts.add(userRepository.findAllByCollege(user.getCollege()).size());
+        }
+        return counts;
+    }
+
+    public List<Integer> countbyAge() {
+        List<User> cusers = userRepository.findDistinctByAge();
+        List<Integer> counts = new ArrayList<>();
+        for (User user : cusers) {
+            counts.add(userRepository.findAllByAge(user.getAge()).size());
+        }
+        return counts;
+    }
 
 }
